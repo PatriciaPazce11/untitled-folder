@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_A29B0D2F-B6B2-4084-9C78-2865B0329C43" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_B0880942-BE88-418A-A0DD-9EBE7B6A958A" name="Untitled" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_A29B0D2F-B6B2-4084-9C78-2865B0329C43">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_8D552221-FF9E-43E0-9C56-09B31C32244A" name="Parametro" isCollection="false">
+    <dmn:typeRef>boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_635120A9-F352-49F4-96D5-DBC8889C42A5" name="InputData-1">
+    <dmn:extensionElements/>
+    <dmn:variable id="_37809E5E-7779-4908-8E0A-3FBD02917C0A" name="InputData-1" typeRef="Parametro"/>
+  </dmn:inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_E326A935-50F3-44D1-963B-461DAC8FD518" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension/>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_635120A9-F352-49F4-96D5-DBC8889C42A5" dmnElementRef="_635120A9-F352-49F4-96D5-DBC8889C42A5" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="174" y="86" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
