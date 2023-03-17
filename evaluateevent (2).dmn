@@ -633,16 +633,19 @@
         <dmn:contextEntry>
           <dmn:variable id="_3DA9E3D5-6942-4E01-BE44-58A979659F7E" name="EnRango" typeRef="boolean"/>
           <dmn:literalExpression id="_8EED9C59-3F20-4753-84ED-800C4DA1F699">
-            <dmn:text>ValidarRangoFecha()</dmn:text>
+            <dmn:text>ValidarRangoFecha(horaOperacion)</dmn:text>
           </dmn:literalExpression>
         </dmn:contextEntry>
         <dmn:contextEntry>
           <dmn:literalExpression id="_BA01851E-F650-46B2-8F46-751531DE46CB">
-            <dmn:text>if EnRango is true then agregarResultadoFechaCorrecta else agregarResultadoFechaIncorrecta</dmn:text>
+            <dmn:text>if EnRango = true then agregarResultadoFechaCorrecta else agregarResultadoFechaIncorrecta</dmn:text>
           </dmn:literalExpression>
         </dmn:contextEntry>
       </dmn:context>
     </dmn:encapsulatedLogic>
+    <dmn:knowledgeRequirement id="_467FA8E2-1002-42FD-9979-6D41A20F4673">
+      <dmn:requiredKnowledge href="#_0CFC80CF-C0E2-4A1E-BB38-B66EE7FDCCA5"/>
+    </dmn:knowledgeRequirement>
   </dmn:businessKnowledgeModel>
   <dmn:businessKnowledgeModel id="_32F291FD-AF5A-4DE5-A904-C3FC269DCD5A" name="DictamenFinal">
     <dmn:extensionElements/>
@@ -754,7 +757,7 @@
             <dmn:contextEntry>
               <dmn:variable id="_EBB2EB4A-D296-4632-8AFD-43AE4040B265" name="montoMaximo" typeRef="number"/>
               <dmn:literalExpression id="_D2F2392C-FDD3-4901-96A1-A8A50A70217A">
-                <dmn:text>asignarMontoMaximo(tipoError,moneda)</dmn:text>
+                <dmn:text>asignarMontoMaximo[tipoError = tipoError AND moneda =moneda].montoMaximo</dmn:text>
               </dmn:literalExpression>
             </dmn:contextEntry>
             <dmn:contextEntry>
@@ -982,54 +985,44 @@
       </dmn:decisionTable>
     </dmn:encapsulatedLogic>
   </dmn:businessKnowledgeModel>
-  <dmn:decision id="_40A2BB8B-9DDD-4F7D-8A27-273EE420D43F" name="ValidarRangoFecha">
+  <dmn:businessKnowledgeModel id="_0CFC80CF-C0E2-4A1E-BB38-B66EE7FDCCA5" name="ValidarRangoFecha">
     <dmn:extensionElements/>
-    <dmn:variable id="_6B2C45C5-06F3-4016-9538-68D763CE18BC" name="ValidarRangoFecha" typeRef="boolean"/>
-    <dmn:knowledgeRequirement id="_ED894403-38A0-4537-BB8C-05FD69DE7B2C">
-      <dmn:requiredKnowledge href="#_F5A891CB-53E6-4E81-BAB5-D1A562CE6D8C"/>
-    </dmn:knowledgeRequirement>
-    <dmn:context id="_28387E27-C489-4442-97F7-B9E974D4EC82">
-      <dmn:contextEntry>
-        <dmn:variable id="_E052F6DB-1877-4E01-9A54-6E318730E562" name="EnRango" typeRef="boolean"/>
-        <dmn:decisionTable id="_D1E7FB52-C6AE-4045-90EF-DCCE3C39BCCF" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
-          <dmn:input id="_F7646B8E-C4CF-492A-A43E-C155779CCE7D">
-            <dmn:inputExpression id="_60292B83-FCE0-473F-B5A1-FF54F5C8738D" typeRef="time">
-              <dmn:text>Operacion.horaOperacion</dmn:text>
-            </dmn:inputExpression>
-          </dmn:input>
-          <dmn:output id="_A436CE7A-9824-49E9-AAA6-B514C81A6D17"/>
-          <dmn:annotation name="annotation-1"/>
-          <dmn:rule id="_FE019791-488A-4860-8488-9B53BC3392EF">
-            <dmn:inputEntry id="_6DC467DC-1407-416A-A37B-18481C0C79F7">
-              <dmn:text>[time("09:00:00")..time("18:00:00")]</dmn:text>
-            </dmn:inputEntry>
-            <dmn:outputEntry id="_4F72B8B6-8DA1-4900-918F-B426E7EC5557">
-              <dmn:text>true</dmn:text>
-            </dmn:outputEntry>
-            <dmn:annotationEntry>
-              <dmn:text/>
-            </dmn:annotationEntry>
-          </dmn:rule>
-          <dmn:rule id="_E5D56E98-6647-4636-AA90-02C6E5DAB7A6">
-            <dmn:inputEntry id="_0A0A2762-5169-4DE6-A618-F66EF6E1E90A">
-              <dmn:text>-</dmn:text>
-            </dmn:inputEntry>
-            <dmn:outputEntry id="_3629CA28-FC1B-41F4-BD86-CFDF77587683">
-              <dmn:text>false</dmn:text>
-            </dmn:outputEntry>
-            <dmn:annotationEntry>
-              <dmn:text/>
-            </dmn:annotationEntry>
-          </dmn:rule>
-        </dmn:decisionTable>
-      </dmn:contextEntry>
-      <dmn:contextEntry>
-        <dmn:literalExpression id="_FE305B75-5FFA-46A5-8E54-2F96CD19A7CB">
-          <dmn:text>EnRango</dmn:text>
-        </dmn:literalExpression>
-      </dmn:contextEntry>
-    </dmn:context>
-  </dmn:decision>
+    <dmn:variable id="_E45FAD38-DCA6-473C-B5BE-B665EB267AF6" name="ValidarRangoFecha" typeRef="boolean"/>
+    <dmn:encapsulatedLogic id="_EE0BE9F9-ACC3-45A6-93AA-2CDCBF2FD787" kind="FEEL">
+      <dmn:formalParameter id="_06C61DA7-97F6-4914-88C3-F1027031E257" name="horaOperacion" typeRef="time"/>
+      <dmn:decisionTable id="_8C54AB7A-2387-4A47-9009-5332030B5DC5" typeRef="boolean" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+        <dmn:input id="_8C65D67E-A4F1-48C7-A07E-D9C8DF4A5232">
+          <dmn:inputExpression id="_A1C31491-FC34-41D1-8454-2E324DE25627" typeRef="time">
+            <dmn:text>horaOperacion</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:output id="_E6245C08-7D10-4DD3-99FC-8E8678A71538"/>
+        <dmn:annotation name="annotation-1"/>
+        <dmn:rule id="_0B4714B5-1BD9-4D50-A3E0-2BBA1203A09B">
+          <dmn:inputEntry id="_AA802E75-50F0-480B-8BB0-453724C0A758">
+            <dmn:text>[time("09:00:00")..time("18:00:00")]</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_5363FB3F-9287-48E1-BA73-FF5D07403BE3">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_18B32CCA-938A-460B-8CDF-7416A71726F8">
+          <dmn:inputEntry id="_F920CEC9-26FB-4BA8-9A3B-FF573CC3B8A7">
+            <dmn:text>-</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_535369B9-EBCA-4677-91EB-7DDC47A44BB3">
+            <dmn:text>false</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+      </dmn:decisionTable>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="_BEA96078-5430-4AB2-8E63-C45D0A93A918" name="DRG">
       <di:extension>
@@ -1472,19 +1465,15 @@
             <kie:width>50</kie:width>
             <kie:width>370</kie:width>
           </kie:ComponentWidths>
-          <kie:ComponentWidths dmnElementRef="_28387E27-C489-4442-97F7-B9E974D4EC82">
+          <kie:ComponentWidths dmnElementRef="_8C54AB7A-2387-4A47-9009-5332030B5DC5">
             <kie:width>50</kie:width>
-            <kie:width>100</kie:width>
-            <kie:width>574</kie:width>
+            <kie:width>358</kie:width>
+            <kie:width>150</kie:width>
+            <kie:width>268</kie:width>
           </kie:ComponentWidths>
-          <kie:ComponentWidths dmnElementRef="_D1E7FB52-C6AE-4045-90EF-DCCE3C39BCCF">
+          <kie:ComponentWidths dmnElementRef="_EE0BE9F9-ACC3-45A6-93AA-2CDCBF2FD787">
             <kie:width>50</kie:width>
-            <kie:width>304</kie:width>
-            <kie:width>100</kie:width>
-            <kie:width>100</kie:width>
-          </kie:ComponentWidths>
-          <kie:ComponentWidths dmnElementRef="_FE305B75-5FFA-46A5-8E54-2F96CD19A7CB">
-            <kie:width>574</kie:width>
+            <kie:width>846</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
@@ -1561,7 +1550,7 @@
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="1098" y="177" width="100" height="50"/>
+        <dc:Bounds x="1114" y="177" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
       <dmndi:DMNShape id="dmnshape-drg-_FBA744E0-46EB-448C-9A10-369DDC1CD3FA" dmnElementRef="_FBA744E0-46EB-448C-9A10-369DDC1CD3FA" isCollapsed="false">
@@ -1663,13 +1652,13 @@
         <dc:Bounds x="367" y="340" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
-      <dmndi:DMNShape id="dmnshape-drg-_40A2BB8B-9DDD-4F7D-8A27-273EE420D43F" dmnElementRef="_40A2BB8B-9DDD-4F7D-8A27-273EE420D43F" isCollapsed="false">
+      <dmndi:DMNShape id="dmnshape-drg-_0CFC80CF-C0E2-4A1E-BB38-B66EE7FDCCA5" dmnElementRef="_0CFC80CF-C0E2-4A1E-BB38-B66EE7FDCCA5" isCollapsed="false">
         <dmndi:DMNStyle>
           <dmndi:FillColor red="255" green="255" blue="255"/>
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="1291" y="418" width="100" height="50"/>
+        <dc:Bounds x="1279" y="410" width="129" height="57"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="dmnedge-drg-_FA476FBC-B833-445D-86AE-DA95658B2CCE" dmnElementRef="_FA476FBC-B833-445D-86AE-DA95658B2CCE">
@@ -1689,7 +1678,7 @@
         <di:waypoint x="811" y="227"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_7BA7C241-598A-4960-820E-F041940B5A18" dmnElementRef="_7BA7C241-598A-4960-820E-F041940B5A18">
-        <di:waypoint x="1148" y="202"/>
+        <di:waypoint x="1164" y="202"/>
         <di:waypoint x="1032" y="202"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_F584455A-683E-4A14-BE36-7BD052BCB7A7" dmnElementRef="_F584455A-683E-4A14-BE36-7BD052BCB7A7">
@@ -1702,11 +1691,11 @@
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_FACDF66D-81A2-459A-A816-815F88DB993C" dmnElementRef="_FACDF66D-81A2-459A-A816-815F88DB993C">
         <di:waypoint x="1326" y="202"/>
-        <di:waypoint x="1198" y="202"/>
+        <di:waypoint x="1214" y="202"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_FCBC910B-1EBA-4C37-AFC7-912033A80419" dmnElementRef="_FCBC910B-1EBA-4C37-AFC7-912033A80419">
         <di:waypoint x="1155" y="333"/>
-        <di:waypoint x="1148" y="227"/>
+        <di:waypoint x="1164" y="227"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_7C90F679-CFA1-4A1B-B43F-3CDD3A6107CC" dmnElementRef="_7C90F679-CFA1-4A1B-B43F-3CDD3A6107CC">
         <di:waypoint x="1341.2990654205607" y="333.3421052631579"/>
@@ -1715,6 +1704,10 @@
       <dmndi:DMNEdge id="dmnedge-drg-_3D87930F-1BCF-4733-90B0-ED681B3B5E05" dmnElementRef="_3D87930F-1BCF-4733-90B0-ED681B3B5E05">
         <di:waypoint x="1509" y="334"/>
         <di:waypoint x="1376" y="202"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_467FA8E2-1002-42FD-9979-6D41A20F4673-AUTO-TARGET" dmnElementRef="_467FA8E2-1002-42FD-9979-6D41A20F4673">
+        <di:waypoint x="1343.5" y="438.5"/>
+        <di:waypoint x="1341.2990654205607" y="358.3421052631579"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_68879098-2AE9-4869-88E6-D6262879BAE8" dmnElementRef="_68879098-2AE9-4869-88E6-D6262879BAE8">
         <di:waypoint x="811" y="202"/>
@@ -1739,10 +1732,6 @@
       <dmndi:DMNEdge id="dmnedge-drg-_52A7F89A-428C-4228-9903-999055BB7FF1" dmnElementRef="_52A7F89A-428C-4228-9903-999055BB7FF1">
         <di:waypoint x="417" y="365"/>
         <di:waypoint x="417" y="227"/>
-      </dmndi:DMNEdge>
-      <dmndi:DMNEdge id="dmnedge-drg-_ED894403-38A0-4537-BB8C-05FD69DE7B2C" dmnElementRef="_ED894403-38A0-4537-BB8C-05FD69DE7B2C">
-        <di:waypoint x="1341.2990654205607" y="333.3421052631579"/>
-        <di:waypoint x="1341" y="443"/>
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
